@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextApiRequest } from "next";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { RichText } from "prismic-dom";
@@ -41,8 +41,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
   const session = await getSession({req});
   const { slug } = params;
 
-  // if(!session){
-  // }
+  if(!session?.activeSubscription){
+    return {
+      redirect: {
+        destination: `/posts/preview/${slug}`,
+        permanent: false,
+      },
+    }
+  }
 
 const prismic = client;
   const response = await prismic.getByUID('post', String(slug), {});
