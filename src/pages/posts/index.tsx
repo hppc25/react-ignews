@@ -27,7 +27,7 @@ export default function Posts({ posts }: PostsProps) {
       <main className={styles.container}>
         <div className={styles.posts}>
           { posts.map(post => (
-           <Link href={`/posts/${post.slug}`} key={post.slug}>
+           <Link  href={`/posts/${post.slug}`} key={post.slug}>
            <a>
              <time>{post.updatedAt}</time>
              <strong>{post.title}</strong>
@@ -44,8 +44,7 @@ export default function Posts({ posts }: PostsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prismic = client;
-
+ 
   const articles = await client.getAllByType("post", {
     orderings: [
     //   { field: "my.article.publishDate", direction: "desc" },
